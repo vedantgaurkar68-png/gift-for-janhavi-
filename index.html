@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dreamy Birthday Wish</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:
+radial-gradient(circle at top left,#ff7be5 0%,transparent 30%),
+radial-gradient(circle at top right,#7afcff 0%,transparent 28%),
+radial-gradient(circle at bottom,#a855f7 0%,transparent 35%),
+linear-gradient(135deg,#120018,#220033,#080010);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+color:white;
+}
+
+canvas{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:1;
+}
+
+.bg-blur{
+position:absolute;
+width:650px;
+height:650px;
+border-radius:50%;
+background:linear-gradient(45deg,#ff00d4,#00f7ff);
+filter:blur(130px);
+opacity:0.25;
+animation:pulse 6s infinite alternate;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+100%{transform:scale(1.2);}
+}
+
+.stars span{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0.2;transform:scale(.6);}
+50%{opacity:1;transform:scale(1.8);}
+}
+
+.card{
+position:relative;
+z-index:5;
+width:min(92%,470px);
+padding:42px 28px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.12);
+border-radius:35px;
+text-align:center;
+box-shadow:
+0 0 25px rgba(255,0,255,.35),
+0 0 60px rgba(0,255,255,.18),
+0 30px 80px rgba(0,0,0,.4);
+animation:float 5s ease-in-out infinite;
+overflow:hidden;
+}
+
+.card::before{
+content:'';
+position:absolute;
+inset:-2px;
+border-radius:35px;
+padding:2px;
+background:linear-gradient(45deg,#ff00ff,#00ffff,#ff66cc,#ffffff);
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+opacity:.7;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0px);}
+50%{transform:translateY(-12px);}
+}
+
+.cute-top{
+font-size:4.3rem;
+margin-bottom:10px;
+filter:drop-shadow(0 0 18px #ff66ff);
+animation:bounce 2.5s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:clamp(3.5rem,10vw,5.4rem);
+font-weight:400;
+line-height:1;
+color:#fff;
+text-shadow:
+0 0 10px #ff7bff,
+0 0 25px #ff00ff,
+0 0 50px #ff00ff;
+}
+
+.subtitle{
+margin-top:12px;
+font-size:1.15rem;
+font-weight:500;
+letter-spacing:2px;
+color:#ffdfff;
+}
+
+.glow-line{
+width:140px;
+height:5px;
+margin:22px auto;
+border-radius:100px;
+background:linear-gradient(90deg,#ff00ff,#00ffff,#ffffff);
+box-shadow:
+0 0 15px #ff00ff,
+0 0 30px #00ffff;
+}
+
+.message{
+line-height:1.9;
+font-size:1rem;
+color:rgba(255,255,255,.95);
+padding:0 6px;
+}
+
+.quote{
+margin-top:18px;
+font-size:.95rem;
+font-style:italic;
+color:#ffe6ff;
+opacity:.95;
+}
+
+.btns{
+display:flex;
+justify-content:center;
+gap:14px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+button{
+border:none;
+padding:14px 24px;
+border-radius:50px;
+font-size:1rem;
+font-weight:600;
+font-family:'Poppins',sans-serif;
+cursor:pointer;
+transition:.35s;
+color:white;
+background:linear-gradient(45deg,#ff00cc,#7a5cff,#00f7ff);
+box-shadow:
+0 0 18px rgba(255,0,255,.5),
+0 0 30px rgba(0,255,255,.4);
+}
+
+button:hover{
+transform:translateY(-3px) scale(1.07);
+box-shadow:
+0 0 30px rgba(255,0,255,.9),
+0 0 50px rgba(0,255,255,.7);
+}
+
+.hidden-message{
+display:none;
+margin-top:22px;
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.12);
+line-height:1.8;
+font-size:.98rem;
+animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(15px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.floating-hearts span{
+position:absolute;
+font-size:24px;
+animation:floatUp linear infinite;
+opacity:.8;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(0) scale(.7);
+opacity:0;
+}
+10%{opacity:.8;}
+100%{
+transform:translateY(-120vh) scale(1.5);
+opacity:0;
+}
+}
+
+.music-bars{
+display:flex;
+justify-content:center;
+gap:5px;
+margin-top:25px;
+}
+
+.music-bars span{
+width:6px;
+height:28px;
+border-radius:20px;
+background:linear-gradient(to top,#ff00ff,#00ffff);
+animation:bars 1s infinite ease-in-out;
+}
+
+.music-bars span:nth-child(2){animation-delay:.2s;}
+.music-bars span:nth-child(3){animation-delay:.4s;}
+.music-bars span:nth-child(4){animation-delay:.6s;}
+.music-bars span:nth-child(5){animation-delay:.8s;}
+
+@keyframes bars{
+0%,100%{height:15px;}
+50%{height:38px;}
+}
+
+.footer{
+margin-top:22px;
+font-size:.85rem;
+color:#f5dfff;
+letter-spacing:1px;
+opacity:.85;
+}
+
+@media(max-width:480px){
+.card{
+padding:35px 20px;
+}
+
+button{
+width:100%;
+}
+
+.btns{
+flex-direction:column;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-blur"></div>
+
+<canvas id="confetti"></canvas>
+
+<div class="stars">
+<span style="top:10%;left:12%;animation-duration:4s"></span>
+<span style="top:18%;left:80%;animation-duration:6s"></span>
+<span style="top:70%;left:20%;animation-duration:5s"></span>
+<span style="top:35%;left:55%;animation-duration:3s"></span>
+<span style="top:85%;left:75%;animation-duration:7s"></span>
+<span style="top:55%;left:90%;animation-duration:4s"></span>
+<span style="top:22%;left:38%;animation-duration:5s"></span>
+<span style="top:78%;left:48%;animation-duration:6s"></span>
+</div>
+
+<div class="floating-hearts">
+<span style="left:8%;animation-duration:8s;">💖</span>
+<span style="left:24%;animation-duration:10s;">✨</span>
+<span style="left:42%;animation-duration:7s;">💜</span>
+<span style="left:65%;animation-duration:9s;">🎀</span>
+<span style="left:88%;animation-duration:6s;">🌸</span>
+</div>
+
+<div class="card">
+
+<div class="cute-top">🎂✨</div>
+
+<h1>Happy Birthday</h1>
+
+<div class="subtitle">Janhavi 💖</div>
+
+<div class="glow-line"></div>
+
+<p class="message">
+May your life glow brighter than the stars,
+shine more beautifully than neon lights,
+and be filled with endless happiness,
+love, luxury, sweet memories, success,
+and magical moments forever ✨
+</p>
+
+<div class="quote">
+"Some people make the world more beautiful just by being in it." 💎
+</div>
+
+<div class="music-bars">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="btns">
+<button onclick="celebrate()">Celebrate 🎉</button>
+<button onclick="openWish()">Open Cute Message 💌</button>
+</div>
+
+<div class="hidden-message" id="wishBox">
+You are precious, beautiful, and deeply loved.
+May every dream you have turn into reality and every smile stay forever on your face 🌸💖✨
+</div>
+
+<div class="footer">
+Made with love 💜
+</div>
+
+</div>
+
+<script>
+const canvas=document.getElementById('confetti');
+const ctx=canvas.getContext('2d');
+
+let w=canvas.width=window.innerWidth;
+let h=canvas.height=window.innerHeight;
+
+let particles=[];
+
+function random(min,max){
+return Math.random()*(max-min)+min;
+}
+
+function createConfetti(amount=250){
+const colors=['#ff00ff','#00ffff','#ffffff','#ff66cc','#ffd700','#c084fc'];
+
+for(let i=0;i<amount;i++){
+particles.push({
+x:w/2,
+y:h/3,
+size:random(4,10),
+color:colors[Math.floor(Math.random()*colors.length)],
+speedX:random(-7,7),
+speedY:random(-12,4),
+rotation:random(0,360),
+gravity:0.13,
+alpha:1
+});
+}
+}
+
+function animate(){
+ctx.clearRect(0,0,w,h);
+
+particles.forEach((p,index)=>{
+ctx.save();
+ctx.globalAlpha=p.alpha;
+ctx.translate(p.x,p.y);
+ctx.rotate(p.rotation);
+ctx.fillStyle=p.color;
+ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+ctx.restore();
+
+p.x+=p.speedX;
+p.y+=p.speedY;
+p.speedY+=p.gravity;
+p.rotation+=0.03;
+p.alpha-=0.008;
+
+if(p.alpha<=0){
+particles.splice(index,1);
+}
+});
+
+requestAnimationFrame(animate);
+}
+
+function celebrate(){
+createConfetti(320);
+}
+
+function openWish(){
+document.getElementById('wishBox').style.display='block';
+celebrate();
+}
+
+animate();
+celebrate();
+
+window.addEventListener('resize',()=>{
+w=canvas.width=window.innerWidth;
+h=canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
